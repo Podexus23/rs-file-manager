@@ -1,0 +1,26 @@
+{
+  "name": "rs-file-manager",
+  "version": "1.0.0",
+  "description": "implementation of File manager for RSSchool task",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "start-me": "node src/index.js --username=Usaty_Podex"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Podexus23/rs-file-manager.git"
+  },
+  "keywords": [
+    "rsschool",
+    "nodejs"
+  ],
+  "author": "Podexus23",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Podexus23/rs-file-manager/issues"
+  },
+  "homepage": "https://github.com/Podexus23/rs-file-manager#readme"
+}
