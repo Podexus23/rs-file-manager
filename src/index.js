@@ -1,29 +1,27 @@
 import {argv, stdin, stdout} from 'process';
+import { getNameFromArg } from './helpers/args.helper.js';
+import { getHomePath, getUserName, setUserName, USER_DATA} from './services/storage.service.js';
 
-const checkUserName = () => {
-  let name = argv.slice(2)[0];
-  if(name.includes('--username=')) return name.replace('--username=', '');
-  else return 'Guest';
-}
 
-const leavingProgram = () => {
-  console.log('Thank you for using File Manager, Username, goodbye!');
-  process.exit();
-}
 
-const mainManager = async() => {
-  const USER = checkUserName();
-  console.log(`Welcome to the File Manager, ${USER}!`);
+const main = async() => {
+  const args = process.argv.slice(2);
+  const user = getNameFromArg(args[0]);
+
+  if(user) setUserName(user);
+  else return;
+  console.log(`Welcome to the File Manager, ${getUserName()}!`.trim())
+
+  process.on('SIGINT', leavingProgram);
 
   stdin.on('data', (data)=> {
     const chunkOfData = data.toString('utf-8').trim();
     console.log(`Data came from terminal: ${data}`);
     if(chunkOfData === '.exit') leavingProgram();
   })
-
-  process.on('SIGINT', leavingProgram);
+  
 
 }
 
 
-await mainManager();
+await main();
