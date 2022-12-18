@@ -1,3 +1,4 @@
+import { getUserName } from "./storage.service.js";
 
 
 const printError = (error) => {
@@ -9,4 +10,4 @@ const leavingProgram = () => {
   process.exit(0);
 }
 
-export {printError}
+export {printError, leavingProgram}
