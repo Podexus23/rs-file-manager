@@ -1,3 +1,4 @@
+import { upCommand } from "../services/navigation.service.js";
 
 
 const mainController = (cmd) => {
@@ -5,6 +6,7 @@ const mainController = (cmd) => {
   //navigation
   if (cmd === 'up') {
     console.log('we a going up');
+    upCommand();
   }
   if(cmd === "cd") {
     console.log('change directory, relative or absolute!');

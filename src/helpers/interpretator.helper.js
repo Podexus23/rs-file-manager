@@ -31,8 +31,8 @@ const inputInterpreter = (string) => {
     }
     //space solutions
     //last check for spaced word
-    if((spaceHolder.space === true) && (i === string.length - 1) && !(QUOTES.includes(string[i]))){
-      fullPieces.push(string.slice(spaceHolder.place, i));
+    if((spaceHolder.space === true) && (i === (string.length - 1)) && !(QUOTES.includes(string[i]))){
+      fullPieces.push(string.slice(spaceHolder.place, i+1));
     }
     //work with spaced words in middle lane
     if((spaceHolder.space === true) && (string[i] === ' ') && (start.place === null)){
