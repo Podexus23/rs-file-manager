@@ -1,23 +1,13 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { getHomePath, setHomePath } from './storage.service.js';
+import { chdir } from 'process';
 
 const upCommand = () => {
-  setHomePath(path.dirname(getHomePath()))
-}
-
-const changeDir = (newPath) => {
-  const isPath = join(newPath);
-  console.log(isPath)
-  if(isPath.isAbsolute()){
-    setHomePath(newPath);
-  } else {
-    console.log(newPath)
-  }
+  chdir(path.dirname(cwd()))
 }
 
 const showListOfFiles = async () => {
-  const dirPath = getHomePath();
+  const dirPath = cwd();
   const directory = await fs.readdir(dirPath, {withFileTypes: true});
   const sortedDir = directory.map((elem) => {
     if(elem.isFile()) return {name:elem.name, type:'file'}
@@ -27,4 +17,4 @@ const showListOfFiles = async () => {
   console.table(sortedDir);
 }
 
-export {upCommand, changeDir, showListOfFiles}
+export {upCommand, showListOfFiles}
