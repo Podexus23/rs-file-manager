@@ -1,3 +1,5 @@
+import { compressBrotli } from "../services/compress.service.js";
+import { decompressBrotli } from "../services/decompress.service.js";
 import { copyFile } from "../services/fs/copyFile.fs.js";
 import { createFile } from "../services/fs/createFile.fs.js";
 import { deleteFile } from "../services/fs/deleteFile.fs.js";
@@ -24,10 +26,9 @@ const mainController = ([cmd, arg1, arg2, ...rest]) => {
     console.log('Print in console list of all files and folders in current directory');
     showListOfFiles();
   }
-
   //files operations
   if (cmd === "cat") {
-    console.log(`Read file and print it's content in console (should be done using Readable stream)`);
+    console.log(`Read file and print it's content in console`);
     readFile(arg1);
   }
   if(cmd === "add") {
@@ -35,15 +36,15 @@ const mainController = ([cmd, arg1, arg2, ...rest]) => {
     createFile(arg1);
   }
   if(cmd === "rn") {
-    console.log(`Rename file (content should remain unchanged)`);
+    console.log(`Rename file`);
     renameFile(arg1, arg2);
   }
   if(cmd === "cp") {
-    console.log(`Copy file (should be done using Readable and Writable streams)`);
+    console.log(`Copy file`);
     copyFile(arg1, arg2);
   }
   if(cmd === "mv") {
-    console.log(`Move file (same as copy but initial file is deleted, copying part should be done using Readable and Writable streams):`);
+    console.log(`Move file`);
     moveFile(arg1, arg2);
   }
   if(cmd === "rm") {
@@ -60,10 +61,12 @@ const mainController = ([cmd, arg1, arg2, ...rest]) => {
     calcHash(arg1);
   }
   if(cmd === 'compress'){
-    console.log('compress')
+    console.log('Brotli compress');
+    compressBrotli(arg1, arg2);
   }
   if(cmd === 'decompress'){
-    console.log('decompress')
+    console.log('Brotli decompress');
+    decompressBrotli(arg1, arg2);
   }
 }
 
