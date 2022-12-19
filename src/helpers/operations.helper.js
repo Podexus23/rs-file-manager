@@ -5,6 +5,7 @@ import { moveFile } from "../services/fs/moveFile.fs.js";
 import { readFile } from "../services/fs/readfile.fs.js";
 import { renameFile } from "../services/fs/renameFile.fs.js";
 import { upCommand, showListOfFiles, changeDir } from "../services/navigation.service.js";
+import { osInfo } from "../services/os.service.js";
 
 
 const mainController = ([cmd, arg1, arg2, ...rest]) => {
@@ -50,17 +51,8 @@ const mainController = ([cmd, arg1, arg2, ...rest]) => {
   }
   //OS INFO
   if(cmd === "os"){
-    console.log(`Operating system info (prints following information in console)
-    Get EOL (default system End-Of-Line) and print it to console
-    os --EOL
-    Get host machine CPUs info (overall amount of CPUS plus model and clock rate (in GHz) for each of them) and print it to console
-    os --cpus
-    Get home directory and print it to console
-    os --homedir
-    Get current system user name (Do not confuse with the username that is set when the application starts) and print it to console
-    os --username
-    Get CPU architecture for which Node.js binary has compiled and print it to console
-    os --architecture`)
+    console.log(`Operating system`);
+    osInfo(arg1);
   }
   if(cmd === 'hash'){
     console.log('hash')
