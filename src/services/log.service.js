@@ -1,11 +1,15 @@
 
 
 const printError = (error) => {
-  console.log(' ERROR: ' + '' + error);
+  console.log('ERROR: ' + '' + error);
 }
 
-const loginError = () => {
-  console.log(' ERROR: ' + '' + error);
+const printInputError = () => {
+  console.log('Invalid input: command not found');
+}
+
+const printOperationError = (err) => {
+  console.log('Operation failed: ' + err)
 }
 
 const leavingProgram = (username) => {
@@ -13,4 +17,4 @@ const leavingProgram = (username) => {
   process.exit(0);
 }
 
-export {printError, leavingProgram, loginError}
+export {printError, leavingProgram, printInputError, printOperationError}

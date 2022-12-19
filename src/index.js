@@ -3,7 +3,7 @@ import { EOL, homedir } from 'os';
 import readline from 'readline/promises';
 
 import { getNameFromArg } from './helpers/args.helper.js';
-import { leavingProgram, printError } from './services/log.service.js';
+import { leavingProgram, printError, printInputError, printOperationError } from './services/log.service.js';
 import { mainController } from './helpers/operations.helper.js';
 import { inputInterpreter } from './helpers/interpretator.helper.js';
 
@@ -36,14 +36,17 @@ const main = async() => {
 
   rl.on('line', (input) => {
     const trimmedStr = input.trim();
+    if(trimmedStr === '.exit') leavingProgram(userStartData.name);
+
     const checkedLine = inputInterpreter(trimmedStr);
     //!remove
     console.log("old funk: ", checkedLine);
 
-    if(trimmedStr === '.exit') leavingProgram(userStartData.name);
     try{
-      if(commands.includes(checkedLine[0])) mainController(checkedLine);
+      if(!commands.includes(checkedLine[0])) printInputError();
+      mainController(checkedLine);
     } catch(e){
+      printOperationError();
       printError(e.message)
     }
     

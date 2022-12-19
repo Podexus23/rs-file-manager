@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs/promises';
-import { chdir } from 'process';
+import { chdir, cwd } from 'process';
+import { printOperationError } from './log.service.js';
 
 const upCommand = () => {
   chdir(path.dirname(cwd()))
@@ -14,7 +15,22 @@ const showListOfFiles = async () => {
     if(elem.isDirectory()) return {name:elem.name, type:'directory'}
     else return {name: elem.name, type: 'special'}
   });
-  console.table(sortedDir);
+
+  console.table(sortedDir.sort((a, b) => {
+    if(a.type === b.type) return 0;
+    if(a.type === 'directory') return -1;
+    if(a.type === 'special') return 1;
+    if(a.type === 'file' && b.type === 'directory') return 1;
+    else return -1;
+  }));
 }
 
-export {upCommand, showListOfFiles}
+const changeDir = (newDir) => {
+  try{
+    chdir(newDir);
+  } catch(e) {
+    printOperationError('wrong path');
+  }
+}
+
+export {upCommand, showListOfFiles, changeDir}

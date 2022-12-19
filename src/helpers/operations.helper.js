@@ -1,4 +1,4 @@
-import { upCommand, showListOfFiles } from "../services/navigation.service.js";
+import { upCommand, showListOfFiles, changeDir } from "../services/navigation.service.js";
 
 
 const mainController = ([cmd, arg1, arg2, ...rest]) => {
@@ -10,6 +10,7 @@ const mainController = ([cmd, arg1, arg2, ...rest]) => {
   }
   if (cmd === "cd") {
     console.log('change directory, relative or absolute!');
+    changeDir(arg1);
   }
   if (cmd === "ls") {
     console.log('Print in console list of all files and folders in current directory');
