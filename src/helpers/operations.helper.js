@@ -4,6 +4,7 @@ import { deleteFile } from "../services/fs/deleteFile.fs.js";
 import { moveFile } from "../services/fs/moveFile.fs.js";
 import { readFile } from "../services/fs/readfile.fs.js";
 import { renameFile } from "../services/fs/renameFile.fs.js";
+import { calcHash } from "../services/hash.service.js";
 import { upCommand, showListOfFiles, changeDir } from "../services/navigation.service.js";
 import { osInfo } from "../services/os.service.js";
 
@@ -55,7 +56,8 @@ const mainController = ([cmd, arg1, arg2, ...rest]) => {
     osInfo(arg1);
   }
   if(cmd === 'hash'){
-    console.log('hash')
+    console.log('Calculating hash');
+    calcHash(arg1);
   }
   if(cmd === 'compress'){
     console.log('compress')
