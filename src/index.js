@@ -2,8 +2,8 @@ import {argv, stdin, stdout} from 'process';
 import readline from 'readline/promises';
 
 import { getNameFromArg,  } from './helpers/args.helper.js';
-import { getHomePath, getUserName, setUserName, USER_DATA} from './services/storage.service.js';
-import { leavingProgram } from './services/log.service.js';
+import { getHomePath, getUserName, setUserName} from './services/storage.service.js';
+import { leavingProgram, printError } from './services/log.service.js';
 import { mainController } from './helpers/operations.helper.js';
 import { inputInterpreter } from './helpers/interpretator.helper.js';
 
@@ -21,17 +21,22 @@ const main = async() => {
   if(user) setUserName(user);
   else return;
 
-  console.log(`Welcome to the File Manager, ${getUserName()}!
-  You are currently in ${getHomePath()}`.trim());
+  console.log(`Welcome to the File Manager, ${getUserName()}!' 
+You are currently in ${getHomePath()}`.trim());
 
   rl.on('line', (input) => {
     const trimmedStr = input.trim()
     const checkedLine = inputInterpreter(trimmedStr);
     // console.log(`Line: "${input}"`);
     // console.log(`Trimmed: "${trimmedStr}"`);
-    // console.log(checkedLine)
+    console.log(checkedLine)
     if(trimmedStr === '.exit') leavingProgram();
-    if(commands.includes(checkedLine[0])) mainController(checkedLine[0]);
+    try{
+      if(commands.includes(checkedLine[0])) mainController(checkedLine);
+    } catch(e){
+      printError(e.message)
+    }
+    
 
     console.log(`You are currently in ${getHomePath()}`.trim())
   })

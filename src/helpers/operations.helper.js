@@ -1,21 +1,23 @@
-import { upCommand } from "../services/navigation.service.js";
+import { upCommand, changeDir, showListOfFiles } from "../services/navigation.service.js";
 
 
-const mainController = (cmd) => {
+const mainController = ([cmd, arg1, arg2, ...rest]) => {
   
   //navigation
   if (cmd === 'up') {
-    console.log('we a going up');
+    console.log('we are going up');
     upCommand();
   }
-  if(cmd === "cd") {
+  if (cmd === "cd") {
     console.log('change directory, relative or absolute!');
+    changeDir(arg1);
   }
-  if(cmd === "ls") {
+  if (cmd === "ls") {
     console.log('Print in console list of all files and folders in current directory');
+    showListOfFiles();
   }
   //files operations
-  if(cmd === "cat") {
+  if (cmd === "cat") {
     console.log(`Read file and print it's content in console (should be done using Readable stream):`);
   }
   if(cmd === "add") {
