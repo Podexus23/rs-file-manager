@@ -33,6 +33,7 @@ const main = async() => {
   );
   
   process.on('SIGINT', () => {leavingProgram(userStartData.name)})
+  rl.on('SIGINT', () => {leavingProgram(userStartData.name)})
   rl.on('line', (input) => {
     const trimmedStr = input.trim();
     if (trimmedStr === '.exit') leavingProgram(userStartData.name);
