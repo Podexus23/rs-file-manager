@@ -10,12 +10,12 @@ import { inputInterpreter } from './helpers/interpretator.helper.js';
 const rl = readline.createInterface({
   input: stdin,
   output: stdout,
-})
+});
 
 const userStartData = {
   name: "John Doe",
   path: homedir(),
-}
+};
 
 const commands = ['up', 'cd', 'ls', 'cat', 'add',
  'rn', 'cp', 'mv', 'rm', 'os',
@@ -31,31 +31,23 @@ const main = async() => {
   `Welcome to the File Manager, ${userStartData.name}!` 
   + EOL + `You are currently in ${cwd()}`.trim()
   );
-
-
-
+  
+  process.on('SIGINT', () => {leavingProgram(userStartData.name)})
   rl.on('line', (input) => {
     const trimmedStr = input.trim();
-    if(trimmedStr === '.exit') leavingProgram(userStartData.name);
+    if (trimmedStr === '.exit') leavingProgram(userStartData.name);
 
     const checkedLine = inputInterpreter(trimmedStr);
-    //!remove
-    console.log("old funk: ", checkedLine);
 
-    try{
+    try {
       if(!commands.includes(checkedLine[0])) printInputError();
       mainController(checkedLine);
     } catch(e){
       printOperationError();
-      printError(e.message)
+      printError(e.message);
     }
-    
-
-    console.log(`You are currently in ${cwd()}`.trim())
+    console.log(`You are currently in ${cwd()}`.trim());
   })
-
-  rl.on('SIGINT', () => {leavingProgram(userStartData.name)});
-
 }
 
 
